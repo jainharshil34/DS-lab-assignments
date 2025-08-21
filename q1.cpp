@@ -1,131 +1,46 @@
+
 #include <iostream>
 using namespace std;
 
-int arr[100];
-int n = 0;
+int binarySearch(int arr[], int n, int key)
+{
+    int low = 0, high = n - 1;
 
-void create()
-{
-    cout << "enter no of elements";
-    cin >> n;
-    for (int i = 0; i < n; i++)
+    while (low <= high)
     {
-        cout << "enter value at index " << i << ": ";
-        cin >> arr[i];
-    }
-}
-void display()
-{
-    cout << "your created array " << endl;
-    for (int i = 0; i < n; i++)
-    {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-}
+        int mid = (low + high) / 2;
 
-void insertE()
-{
-    cout << "what you want to insert and what position";
-    int pos;
-    int what;
-    n++;
-    cin >> what >> pos;
-    for (int i = n - 1; i > pos; i--)
-    {
-        arr[i] = arr[i - 1];
-    }
-    arr[pos] = what;
-}
-
-void deleteE()
-{
-    int del, count = 0;
-    cout << "what element you want to delete in arr";
-    cin >> del;
-    for (int i = 0; i < n; i++)
-    {
-        if (arr[i] == del)
+        if (arr[mid] == key)
         {
-            count++;
-            for (int j = i; j < n; j++)
-            {
-                arr[j] = arr[j + 1];
-            }
-            n--;
-            i--; // # in case of dublicates
+            return mid;
+        }
+        else if (arr[mid] > key)
+        {
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
         }
     }
-    if (count == 0)
-    {
-        cout << "element is not present";
-    }
+    return -1;
 }
 
-void linearSearch()
-{
-    int ele;
-    int count;
-    cout << "tell what element you want to search";
-    cin >> ele;
-    for (int i = 0; i < n; i++)
-    {
-        if (arr[i] == ele)
-        {
-            cout << "found at the position" << i + 1 << endl;
-            count++;
-        }
-    }
-    if (count == 0)
-    {
-        cout << "element not present in array";
-    }
-}
 int main()
 {
-    cout << " MENU " << endl
-         << " 1 CREATE " << endl
-         << " 2 DISPLAY " << endl
-         << " 3 INSERT " << endl
-         << " 4 DELETE " << endl
-         << " 5 LINEAR SEARCH " << endl
-         << " 6 EXIT " << endl;
+    int arr[] = {2, 5, 8, 12, 16, 23, 38, 45, 56, 72, 91};
+    int n = sizeof(arr) / sizeof(arr[0]);
 
-    cout << "enter the choice";
-    int y;
-    cin >> y;
+    int key;
+    cout << "Enter element to search: ";
+    cin >> key;
 
-    while (y != 6)
-    {
-        switch (y)
-        {
-        case 1:
-            create();
-            break;
+    int result = binarySearch(arr, n, key);
 
-        case 2:
-            display();
-            break;
+    if (result != -1)
+        cout << "Element " << key << " found at index " << result << endl;
+    else
+        cout << "Element " << key << " not found in array" << endl;
 
-        case 3:
-            insertE();
-            break;
-
-        case 4:
-            deleteE();
-            break;
-
-        case 5:
-            linearSearch();
-            break;
-
-        case 6:
-            cout << "THANKYOU";
-            break;
-        }
-
-        cout << "enter the choice again";
-        cin >> y;
-    }
-return 0;
+    return 0;
 }

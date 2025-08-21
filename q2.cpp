@@ -1,41 +1,47 @@
+
 #include <iostream>
 using namespace std;
 
-void deldup(int arr[], int size)
+// Bubble Sort Function
+void bubbleSort(int arr[], int n)
 {
-
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < n - 1; i++)
     {
-        for (int j = i + 1; j < size; j++)
+        bool swapped = false;
+
+        for (int j = 0; j < n - i - 1; j++)
         {
-            if (arr[i] == arr[j])
+            if (arr[j] > arr[j + 1])
             {
-                for (int k = j; k < size; k++)
-                {
-                    arr[k] = arr[k + 1];
-                }
-                j--;
-                size--;
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+
+                swapped = true;
             }
         }
-    } // print
-    for (int i = 0; i < size; i++)
-    {
-        cout << arr[i] << " ";
+
+        if (!swapped)
+            break;
     }
 }
 
 int main()
 {
-    int n;
-    cout << "enter the size of arr";
-    cin >> n;
-    int arr[n];
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    cout << "Unsorted array: ";
     for (int i = 0; i < n; i++)
-    {
-        cout << "enter value at position" << i << endl;
-        cin >> arr[i];
-    }
-    deldup(arr, n);
+        cout << arr[i] << " ";
+    cout << endl;
+
+    bubbleSort(arr, n);
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+
     return 0;
 }
